@@ -1,0 +1,47 @@
+<html>
+
+	<head>
+
+	</head>
+
+	<body>
+		
+		<?php
+
+			$mysqli = new mysqli('mysql.eecs.ku.edu', 'eward', 'ethanward', 'eward');
+
+			if($mysqli->connect_errno) {
+			  printf("Connect failed: %s\n", $mysqli->connect_error);
+			  exit();
+			}
+
+			$user = $_POST['users'];
+
+			$query = "SELECT post_id,user_id,content FROM Posts";
+
+			if($result = $mysqli->query($query)) {
+
+				echo "<form action = 'DeletePost.php' method = 'post'>";
+				echo "<table border = '1' cellpadding = '5'>";
+
+				while($row = $result->fetch_assoc()) {
+
+					printf("<tr><td><input type = 'checkbox' name = 'DeleteList[]' value = '%s'></td><td>%s</td><td>%s</td></tr>", $row["post_id"], $row["user_id"], $row["content"]);
+					//echo "br";
+				}
+
+				echo "</table>";
+				echo "<input type = 'submit' value = 'Delete Posts'>";
+				echo "</form>";
+				$result->free();
+			}
+
+			$mysqli->close();
+
+
+			?>
+
+
+	</body>
+
+</html>

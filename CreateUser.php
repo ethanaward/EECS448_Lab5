@@ -20,6 +20,9 @@ if($mysqli->query($query)) {
   echo("Success! $user was added into the database.");
 }
 else {
-  echo "Could not enter user: $user was already in the database.";
+  echo "User add failed.";
 }
+
+$mysqli->close();
+
  ?>
